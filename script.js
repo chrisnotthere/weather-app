@@ -9,6 +9,7 @@ async function getWeather(location){
     console.log(data);
     processWeatherData(data);
     console.log(weatherObj);
+    displayWeatherData(weatherObj);
   } 
   catch(err) {
     displayWeather.innerText = 'City not found';
@@ -25,6 +26,7 @@ function processWeatherData(data){
   const feelsLike = `${data.main.feels_like}°C`;
   const humidity = `${data.main.humidity}%`;
   const wind = `${data.wind.speed}/kph`;
+  const icon = data.weather[0].icon;
 
   return weatherObj = {
     name,
@@ -33,17 +35,39 @@ function processWeatherData(data){
     feelsLike,
     humidity,
     wind,
+    icon
   }
 }
 
-function displayWeatherData(){
-  
+function displayWeatherData(weatherObj){
+  const name = document.createElement('h1');
+  name.innerText = weatherObj.name;
+  const description = document.createElement('p');
+  description.innerText = weatherObj.description;
+  description.classList.add('capitalize');
+  const icon = document.createElement('img');
+  icon.src = `http://openweathermap.org/img/w/${weatherObj.icon}.png`;
+  const temp = document.createElement('p');
+  temp.innerText = 'Current temp: ' + weatherObj.temp;
+  const feelsLike = document.createElement('p');
+  feelsLike.innerText = 'Feels like: ' + weatherObj.feelsLike;
+  const humidity = document.createElement('p');
+  humidity.innerText = 'Humidity: ' + weatherObj.humidity;
+  const wind = document.createElement('p');
+  wind.innerText = 'Wind speed: ' + weatherObj.wind;
+
+  displayWeather.appendChild(name);
+  displayWeather.appendChild(description);
+  displayWeather.appendChild(icon);
+  displayWeather.appendChild(temp);
+  displayWeather.appendChild(feelsLike);
+  displayWeather.appendChild(humidity);
+  displayWeather.appendChild(wind);
 }
 
 // listen for 'Enter' keypress 
 document.querySelector('#search').addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
-    //alert('hello');
     getWeather(document.querySelector('#search').value)
   }
 });
