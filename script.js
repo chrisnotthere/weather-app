@@ -1,11 +1,14 @@
-displayWeather = document.querySelector('#currentWeather');
+const displayWeather = document.querySelector('#currentWeather');
+const loader = document.querySelector('.loader');
 
 async function getWeather(location){
 
   try {
     displayWeather.innerText = '';
+    loader.style.display = 'block'
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=01a3c5215b6c89c0f8ab101eda78369d&units=metric`, {mode: 'cors'});  
     const data = await response.json();
+    loader.style.display = 'none'
     // console.log(data);
     processWeatherData(data);
     // console.log(weatherObj);
