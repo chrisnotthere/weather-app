@@ -4,7 +4,7 @@ async function getWeather(location){
 
   try {
     displayWeather.innerText = '';
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=API-KEY&units=metric`, {mode: 'cors'});  
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=01a3c5215b6c89c0f8ab101eda78369d&units=metric`, {mode: 'cors'});  
     const data = await response.json();
     // console.log(data);
     processWeatherData(data);
